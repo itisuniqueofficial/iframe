@@ -20,7 +20,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      position: relative;
     }
 
     /* Fullscreen iframe */
@@ -31,20 +30,10 @@
       width: 100%;
       height: 100%;
       border: none;
-      pointer-events: auto; /* Allow interaction with the video */
+      pointer-events: auto;
+      user-select: none; /* Prevent text selection inside iframe */
       transition: opacity 0.3s ease; /* Smooth fade-in */
       opacity: 0; /* Initially hidden until loaded */
-    }
-
-    /* Block all interactions except iframe */
-    .overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5); /* Semi-transparent dark overlay */
-      pointer-events: none; /* Make the overlay non-interactive */
     }
 
     /* Prevent drag-and-drop globally */
@@ -70,9 +59,6 @@
   </style>
 </head>
 <body>
-  <!-- Overlay to block interactions except video -->
-  <div class="overlay"></div>
-
   <!-- Error message -->
   <div id="error">Failed to load video. <button onclick="reloadVideo()">Retry</button></div>
 
