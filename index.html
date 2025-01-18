@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="referrer" content="no-referrer"> <!-- Secure referrer policy -->
+  <title>Enhanced Full-Screen Video Player</title>
+  <style>
+    /* Reset and global settings */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden; /* Prevent scrolling */
+      background: #000; /* Black background */
+      user-select: none; /* Disable text selection */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Fullscreen iframe */
+    iframe {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      pointer-events: auto;
+      user-select: none; /* Prevent text selection inside iframe */
+      transition: opacity 0.3s ease; /* Smooth fade-in */
+      opacity: 0; /* Initially hidden until loaded */
+    }
+
+    /* Prevent drag-and-drop globally */
+    * {
+      -webkit-user-drag: none;
+      -moz-user-drag: none;
+      -ms-user-drag: none;
+      user-drag: none;
+    }
+
+    /* Custom error message */
+    #error {
+      color: white;
+      font-size: 20px;
+      text-align: center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Error message -->
+  <div id="error">Failed to load video. <button onclick="reloadVideo()">Retry</button></div>
+
+  <!-- Fullscreen iframe -->
+  <iframe 
+    id="videoPlayer" 
+    allowfullscreen 
+    allow="autoplay; fullscreen" 
+    aria-label="Video Player">
+  </iframe>
+
+  <script>
+    // Dynamic video source URL
+    const videoSrc = "https://vidstreaming.xyz/v/Awvu8rU3pfIx/";
+
+    // Select iframe element
+    const iframe = document.getElementById("videoPlayer");
+
+    // Load video when it comes into view using Intersection Observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          iframe.src = videoSrc; // Set video source when iframe is visible
+          iframe.style.opacity = 1; // Fade in iframe
+        }
+      });
+    });
+
+    // Start observing the iframe
+    observer.observe(iframe);
+
+    // Retry loading video on error
+    function reloadVideo() {
+      document.getElementById("error").style.display = "none";
+      iframe.src = videoSrc; // Reload video source
+    }
+
+    // Error handling
+    iframe.addEventListener('error', () => {
+      document.getElementById("error").style.display = "block"; // Show error message
+    });
+
+    // Prevent right-click and drag-and-drop globally
+    document.addEventListener("contextmenu", (event) => event.preventDefault());
+    document.addEventListener("dragstart", (event) => event.preventDefault());
+
+    // Prevent text selection globally
+    document.addEventListener("selectstart", (event) => event.preventDefault());
+  </script>
+</body>
+</html>
