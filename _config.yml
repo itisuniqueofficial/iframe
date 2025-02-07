@@ -41,7 +41,7 @@ exclude:
   - "README.md"
   - "Gemfile"
   - "Gemfile.lock"
-  
+
 # Localization
 locale: "en"  # Site language (optional)
 
@@ -52,15 +52,15 @@ defaults:
     values:
       layout: "default"  # Default layout for posts and pages
 
-# Auto detect .md files as posts in any folder
+# Define Custom Collection (Treat the 'naruto' folder as posts)
 collections:
-  posts:
+  naruto:
     output: true
-    permalink: /:categories/:title/
-    folder: _posts
-    sort_by: "date"
+    permalink: "/naruto/:title/"
+    folder: "naruto"  # Custom folder path where posts will be stored
+    sort_by: "title"
     defaults:
       - scope:
-          path: "_posts/"
+          path: "naruto"
         values:
           layout: "default"
