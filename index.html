@@ -43,36 +43,63 @@
       -ms-user-drag: none;
       user-drag: none;
     }
+
+    /* Custom error message */
+    #error {
+      color: white;
+      font-size: 20px;
+      text-align: center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      display: none;
+    }
   </style>
 </head>
 <body>
+  <!-- Error message -->
+  <div id="error">Failed to load video. <button onclick="reloadVideo()">Retry</button></div>
 
-  <!-- Fullscreen iframe with lazy loading -->
+  <!-- Fullscreen iframe -->
   <iframe 
     id="videoPlayer" 
     allowfullscreen 
     allow="autoplay; fullscreen" 
-    aria-label="Video Player"
-    loading="lazy">
+    aria-label="Video Player">
   </iframe>
 
   <script>
     // Dynamic video source URL
     const videoSrc = "https://vidstreaming.xyz/v/Awvu8rU3pfIx/";
+
+    // Select iframe element
     const iframe = document.getElementById("videoPlayer");
 
-    // Load video when iframe comes into view
-    const observer = new IntersectionObserver((entries, observer) => {
+    // Load video when it comes into view using Intersection Observer
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           iframe.src = videoSrc; // Set video source when iframe is visible
           iframe.style.opacity = 1; // Fade in iframe
-          observer.disconnect(); // Stop observing after loading
         }
       });
     });
 
+    // Start observing the iframe
     observer.observe(iframe);
+
+    // Retry loading video on error
+    function reloadVideo() {
+      document.getElementById("error").style.display = "none";
+      iframe.src = videoSrc; // Reload video source
+    }
+
+    // Error handling
+    iframe.addEventListener('error', () => {
+      document.getElementById("error").style.display = "block"; // Show error message
+    });
 
     // Prevent right-click and drag-and-drop globally
     document.addEventListener("contextmenu", (event) => event.preventDefault());
