@@ -51,3 +51,16 @@ defaults:
       path: ""  # Applies to root path
     values:
       layout: "default"  # Default layout for posts and pages
+
+# Auto detect .md files as posts in any folder
+collections:
+  posts:
+    output: true
+    permalink: /:categories/:title/
+    folder: _posts
+    sort_by: "date"
+    defaults:
+      - scope:
+          path: "_posts/"
+        values:
+          layout: "default"
