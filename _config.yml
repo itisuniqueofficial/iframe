@@ -12,9 +12,9 @@ paginate: 5  # Number of posts per page
 
 # SEO and Meta Tags
 seo:
-  title: "iFrame By It Is Unique Official | {{ page.title }}"  # Dynamic title for SEO purposes
+  title: "iFrame By It Is Unique Official | {{ page.title }}"
   description: "Explore cutting-edge news and updates on tech, politics, entertainment, and more, brought to you by It Is Unique Official."
-  image: "/assets/images/og-image.png"  # Default image for social sharing
+  image: "{{ '/assets/images/og-image.png' | asset_path }}"  # Default image for social sharing
 
 # Jekyll Plugins
 plugins:
@@ -22,38 +22,40 @@ plugins:
   - jekyll-sitemap
   - jekyll-paginate-v2
   - jekyll-feed
+  - jekyll-minifier
+  - jekyll-archives
 
 # Sitemap Configuration
 sitemap:
   exclude:
-    - '/feed.xml'  # Exclude feed from sitemap
+    - '/feed.xml'
     - '/atom.xml'
-    - '/assets/*'  # Exclude assets
-    - '/drafts/*'  # Exclude drafts folder
-    - '/node_modules/*'  # Exclude node_modules if applicable
+    - '/assets/*'
+    - '/drafts/*'
+    - '/node_modules/*'
 
 # RSS Feed Configuration
 feed:
-  path: "feed.xml"  # Path for your RSS feed
+  path: "feed.xml"
   title: "iFrame By It Is Unique Official - RSS Feed"
   description: "Stay updated with the latest posts from iFrame By It Is Unique Official."
 
 # Pagination Configuration
-paginate_path: "/page:num/"  # Path for pagination (e.g., /page2/)
+paginate_path: "/page:num/"
 
 # Exclude files from processing
 exclude:
   - "README.md"
   - "Gemfile"
   - "Gemfile.lock"
-  - "node_modules/*"  # Exclude node_modules if using front-end libraries
+  - "node_modules/*"
 
 # Localization
-locale: "en"  # Site language (optional)
+locale: "en"
 
 # Build Settings
 defaults:
   - scope:
-      path: ""  # Applies to root path
+      path: ""
     values:
-      layout: "default"  # Default layout for posts and pages
+      layout: "default"
