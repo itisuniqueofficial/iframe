@@ -9,9 +9,9 @@
     <meta name="referrer" content="no-referrer">
     <meta name="robots" content="noindex, nofollow">
     
-    <link rel="preload" href="{{ post.video }}" as="document">
+    <link rel="preload" href="{{ page.video }}" as="document">
     
-    <title>{{ post.title }} - {{ site.title }}</title>
+    <title>{{ page.title }} - {{ site.title }}</title>
     
     <style>
       /* Reset and global settings */
@@ -62,7 +62,7 @@
     
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        const videoSrc = "{{ post.video }}";
+        const videoSrc = "{{ page.video }}";
         const iframe = document.getElementById("videoPlayer");
         let videoLoaded = false;
 
