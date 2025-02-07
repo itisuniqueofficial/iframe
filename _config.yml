@@ -3,6 +3,7 @@ title: "iFrame By It Is Unique Official"
 description: "Explore cutting-edge news and updates on tech, politics, entertainment, and more, brought to you by It Is Unique Official."
 url: "https://itisuniqueofficial.github.io"  # Your site's URL
 baseurl: "iframe"  # Use baseurl if your site is hosted in a subdirectory
+lang: "en"
 
 # Permalink Settings (Custom folder structure)
 permalink: /:categories/:title/  # Use :categories for the folder name based on the category of the post
