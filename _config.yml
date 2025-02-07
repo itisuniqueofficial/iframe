@@ -1,0 +1,53 @@
+# Site Settings
+title: "iFrame By It Is Unique Official"
+description: "A description of your site."
+url: "https://itisuniqueofficial.github.io"  # Your site's URL
+baseurl: "iframe"  # Use baseurl if your site is hosted in a subdirectory
+
+# Permalink Settings (Custom folder structure)
+permalink: /:categories/:title/  # Use :categories for the folder name based on the category of the post
+
+# Pagination Settings
+paginate: 5  # Number of posts per page
+
+# SEO and Meta Tags
+seo:
+  title: "iFrame By It Is Unique Official"
+  description: "A description of your site."
+  image: "/assets/images/og-image.png"  # Default image for social sharing
+
+# Jekyll Plugins
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-paginate-v2
+  - jekyll-feed
+
+# Sitemap Configuration
+sitemap:
+  exclude:
+    - '/feed.xml'  # Exclude feed from sitemap
+    - '/atom.xml'
+
+# RSS Feed Configuration
+feed:
+  path: "feed.xml"  # Path for your RSS feed
+
+# Pagination Configuration
+paginate_path: "/page:num/"  # Path for pagination (e.g., /page2/)
+
+# Exclude files from processing
+exclude:
+  - "README.md"
+  - "Gemfile"
+  - "Gemfile.lock"
+  
+# Localization
+locale: "en"  # Site language (optional)
+
+# Build Settings
+defaults:
+  - scope:
+      path: ""  # Applies to root path
+    values:
+      layout: "default"  # Default layout for posts and pages
