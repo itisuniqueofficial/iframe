@@ -1,72 +1,59 @@
-# Site settings
+# Site Settings
 title: "iFrame By It Is Unique Official"
-twitter_username: "itisunique_x"
-email: itisuniqueofficial@gmail.com
-description: "A collection of iFrame"
-url: "https://itisuniqueofficial.github.io"  # GitHub Pages URL for your web stories
-baseurl: "iframe"  # Adjust if necessary
-theme: "jekyll-theme-minimal"  # Optional theme for styling
+description: "Explore cutting-edge news and updates on tech, politics, entertainment, and more, brought to you by It Is Unique Official."
+url: "https://itisuniqueofficial.github.io"  # Your site's URL
+baseurl: "iframe"  # Use baseurl if your site is hosted in a subdirectory
 
-# Collections for your Web Stories
-collections:
-  naruto:
-    output: true  # Ensure web stories are output as pages
-    permalink: "/:name"  # Web story will be accessible at /today-is-happy.html
+# Permalink Settings (Custom folder structure)
+permalink: /:categories/:title/  # Use :categories for the folder name based on the category of the post
 
-# Plugins used
-plugins:
-  - jekyll-sitemap  # Generates a sitemap for your site
-  - jekyll-seo-tag  # Optional for SEO tags (for search engines)
-  - jekyll-feed  # For generating RSS feeds
-  - jekyll-paginate-v2  # For pagination (if needed for larger collections of stories)
-  - jekyll-relative-links  # Ensures relative links work within your stories
+# Pagination Settings
+paginate: 5  # Number of posts per page
 
-# SEO settings (optional)
+# SEO and Meta Tags
 seo:
-  title: "iFrame By It Is Unique Official"
-  description: "Collection of engaging iFrame"
-  author: "It Is Unique Official"
-  twitter: "@itisunique_x"  # Twitter handle for social sharing
-  google_site_verification: ""  # Optional for Google search verification
+  title: "iFrame By It Is Unique Official | {{ page.title }}"  # Dynamic title for SEO purposes
+  description: "Explore cutting-edge news and updates on tech, politics, entertainment, and more, brought to you by It Is Unique Official."
+  image: "/assets/images/og-image.png"  # Default image for social sharing
 
-# Pagination settings (if needed)
-paginate: 10  # Define how many stories per page (adjust based on your need)
-paginate_path: "/page:num"  # Pagination URL structure
+# Jekyll Plugins
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-paginate-v2
+  - jekyll-feed
 
-# Markdown settings (for writing stories in markdown format)
-markdown: "kramdown"
-highlighter: "rouge"  # Syntax highlighting for any code blocks in stories
-
-# Sitemap settings (optional)
+# Sitemap Configuration
 sitemap:
   exclude:
-    - "README.md"
-    - "Gemfile"
-    - "Gemfile.lock"
-    - "node_modules"
-    - "vendor"
-  # Optional: Customize the paths to exclude or include specific parts of your site for the sitemap
+    - '/feed.xml'  # Exclude feed from sitemap
+    - '/atom.xml'
+    - '/assets/*'  # Exclude assets
+    - '/drafts/*'  # Exclude drafts folder
+    - '/node_modules/*'  # Exclude node_modules if applicable
 
-# Social links (optional)
-social:
-  github: "https://github.com/itisuniqueofficial/"
-  twitter: "https://twitter.com/itisunique_x"
-  linkedin: "https://linkedin.com/in/itisuniqueofficial"
+# RSS Feed Configuration
+feed:
+  path: "feed.xml"  # Path for your RSS feed
+  title: "iFrame By It Is Unique Official - RSS Feed"
+  description: "Stay updated with the latest posts from iFrame By It Is Unique Official."
 
-# Google Analytics (optional)
-google_analytics: "UA-XXXXXXXXX-X"  # Replace with your actual Google Analytics ID
+# Pagination Configuration
+paginate_path: "/page:num/"  # Path for pagination (e.g., /page2/)
 
-# Default layout for web stories
+# Exclude files from processing
+exclude:
+  - "README.md"
+  - "Gemfile"
+  - "Gemfile.lock"
+  - "node_modules/*"  # Exclude node_modules if using front-end libraries
+
+# Localization
+locale: "en"  # Site language (optional)
+
+# Build Settings
 defaults:
   - scope:
-      path: "naruto/*"
+      path: ""  # Applies to root path
     values:
-      layout: "default"  # Use a layout for web stories; make sure this layout exists
-      author: "It Is Unique Official"
-
-# Optional: Additional settings
-sass:
-  style: compressed  # Minify CSS output for faster loading
-
-# Google verification (optional)
-google_verification: "your-google-verification-code"  # If you need to verify your site with Google
+      layout: "default"  # Default layout for posts and pages
