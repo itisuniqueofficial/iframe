@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="referrer" content="no-referrer"> <!-- Secure referrer policy -->
   <meta name="robots" content="noindex, nofollow"> <!-- Prevent indexing and following links -->
+  <link rel="preload" href="https://vidstreaming.xyz/v/Awvu8rU3pfIx/" as="document">
   <title>Enhanced Full-Screen Video Player</title>
   <style>
     /* Reset and global settings */
@@ -33,6 +34,7 @@
       pointer-events: auto;
       user-select: none; /* Prevent text selection inside iframe */
       transition: opacity 0.3s ease; /* Smooth fade-in */
+      will-change: opacity; /* Optimized animation rendering */
       opacity: 0; /* Initially hidden until loaded */
     }
 
@@ -53,33 +55,39 @@
     allowfullscreen 
     allow="autoplay; fullscreen" 
     aria-label="Video Player"
-    loading="lazy">
+    loading="lazy"
+    referrerpolicy="no-referrer">
   </iframe>
 
   <script>
-    // Dynamic video source URL
-    const videoSrc = "https://vidstreaming.xyz/v/Awvu8rU3pfIx/";
-    const iframe = document.getElementById("videoPlayer");
+    document.addEventListener("DOMContentLoaded", () => {
+      const videoSrc = "https://vidstreaming.xyz/v/Awvu8rU3pfIx/";
+      const iframe = document.getElementById("videoPlayer");
+      let videoLoaded = false;
 
-    // Load video when iframe comes into view
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          iframe.src = videoSrc; // Set video source when iframe is visible
-          iframe.style.opacity = 1; // Fade in iframe
-          observer.disconnect(); // Stop observing after loading
-        }
+      // Load video when iframe is visible
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !videoLoaded) {
+            videoLoaded = true; // Ensure it loads only once
+            setTimeout(() => {
+              iframe.src = videoSrc;
+              iframe.style.opacity = 1; // Fade in iframe
+              observer.disconnect(); // Stop observing after loading
+            }, 100);
+          }
+        });
       });
+
+      observer.observe(iframe);
+
+      // Prevent right-click and drag-and-drop globally
+      document.addEventListener("contextmenu", (event) => event.preventDefault());
+      document.addEventListener("dragstart", (event) => event.preventDefault());
+
+      // Prevent text selection globally
+      document.addEventListener("selectstart", (event) => event.preventDefault());
     });
-
-    observer.observe(iframe);
-
-    // Prevent right-click and drag-and-drop globally
-    document.addEventListener("contextmenu", (event) => event.preventDefault());
-    document.addEventListener("dragstart", (event) => event.preventDefault());
-
-    // Prevent text selection globally
-    document.addEventListener("selectstart", (event) => event.preventDefault());
   </script>
 </body>
 </html>
