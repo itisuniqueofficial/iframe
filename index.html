@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="referrer" content="no-referrer"> <!-- Secure referrer policy -->
   <meta name="robots" content="noindex, nofollow"> <!-- Prevent indexing and following links -->
-  <title>iFrame Video Player</title>
+  <title>Enhanced Full-Screen Video Player</title>
   <style>
     /* Reset and global settings */
     html, body {
@@ -43,49 +43,30 @@
       -ms-user-drag: none;
       user-drag: none;
     }
-
-    /* Custom error message */
-    #error {
-      color: white;
-      font-size: 20px;
-      text-align: center;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 10;
-      display: none;
-    }
   </style>
 </head>
 <body>
-  <!-- Error message -->
-  <div id="error">Failed to load video. <button onclick="reloadVideo()">Retry</button></div>
 
-  <!-- Fullscreen iframe with lazy loading & security sandboxing -->
+  <!-- Fullscreen iframe with lazy loading -->
   <iframe 
     id="videoPlayer" 
     allowfullscreen 
     allow="autoplay; fullscreen" 
     aria-label="Video Player"
-    loading="lazy"
-    sandbox="allow-scripts allow-same-origin allow-popups">
+    loading="lazy">
   </iframe>
 
   <script>
     // Dynamic video source URL
     const videoSrc = "https://vidstreaming.xyz/v/Awvu8rU3pfIx/";
     const iframe = document.getElementById("videoPlayer");
-    const errorDiv = document.getElementById("error");
 
     // Load video when iframe comes into view
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          setTimeout(() => {
-            iframe.src = videoSrc; // Set video source with delay for better UX
-            iframe.style.opacity = 1; // Fade in iframe
-          }, 300);
+          iframe.src = videoSrc; // Set video source when iframe is visible
+          iframe.style.opacity = 1; // Fade in iframe
           observer.disconnect(); // Stop observing after loading
         }
       });
@@ -93,33 +74,12 @@
 
     observer.observe(iframe);
 
-    // Retry loading video on error
-    function reloadVideo() {
-      errorDiv.style.display = "none";
-      iframe.src = ""; // Reset iframe to force reload
-      setTimeout(() => {
-        iframe.src = videoSrc; // Reload video source
-      }, 100);
-    }
-
-    // Monitor iframe for errors
-    const observerConfig = { attributes: true, attributeFilter: ["src"] };
-    const mutationObserver = new MutationObserver(() => {
-      if (!iframe.contentWindow || iframe.contentWindow.length === 0) {
-        errorDiv.style.display = "block"; // Show error message
-      } else {
-        errorDiv.style.display = "none"; // Hide error if video loads
-      }
-    });
-
-    mutationObserver.observe(iframe, observerConfig);
-
     // Prevent right-click and drag-and-drop globally
-    document.addEventListener("contextmenu", (event) => event.preventDefault(), { passive: true });
-    document.addEventListener("dragstart", (event) => event.preventDefault(), { passive: true });
+    document.addEventListener("contextmenu", (event) => event.preventDefault());
+    document.addEventListener("dragstart", (event) => event.preventDefault());
 
     // Prevent text selection globally
-    document.addEventListener("selectstart", (event) => event.preventDefault(), { passive: true });
+    document.addEventListener("selectstart", (event) => event.preventDefault());
   </script>
 </body>
 </html>
